@@ -13,11 +13,11 @@ const myPhoneBook = new PhoneBook();
 // myPhoneBook.addContact("Bob", "456", "bob@email.com");
 // myPhoneBook.addContact("Charlie", "789", "charlie@email.com");
 
-// Test deleting
-// myPhoneBook.deleteContact("1234567890");
+// Test deleting Zack
+// myPhoneBook.deleteContact("29387510");
 
 //Test updating
-// myPhoneBook.updateContact("1234567890", {
+// myPhoneBook.updateContact("123", {
 //   email: "updated@email.com",
 //   phoneNumber: "555-123-0000",
 // });
@@ -33,4 +33,4 @@ const myPhoneBook = new PhoneBook();
 // myPhoneBook.searchContacts("Zack");    // try other examples!
 
 // 3️ View all contacts
-// myPhoneBook.viewContacts();
+myPhoneBook.viewContacts();

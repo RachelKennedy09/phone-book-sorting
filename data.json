@@ -1,20 +1,26 @@
 [
   {
-    "name": "Zoe",
-    "phoneNumber": "300",
-    "email": "zoe@email.com",
-    "dateAdded": "2025-08-08T22:59:07.991Z"
-  },
-  {
     "name": "Alice",
-    "phoneNumber": "100",
-    "email": "alice@email.com",
-    "dateAdded": "2025-08-08T22:59:07.992Z"
+    "phoneNumber": "555-123-0000",
+    "email": "updated@email.com",
+    "dateAdded": "2025-08-08T23:08:16.985Z"
   },
   {
     "name": "Bob",
-    "phoneNumber": "200",
+    "phoneNumber": "456",
     "email": "bob@email.com",
-    "dateAdded": "2025-08-08T22:59:07.992Z"
+    "dateAdded": "2025-08-08T23:08:16.985Z"
+  },
+  {
+    "name": "Charlie",
+    "phoneNumber": "789",
+    "email": "charlie@email.com",
+    "dateAdded": "2025-08-08T23:08:16.986Z"
+  },
+  {
+    "name": "Zack",
+    "phoneNumber": "29387510",
+    "email": "zack@email.com",
+    "dateAdded": "2025-08-08T23:08:16.978Z"
   }
 ]
