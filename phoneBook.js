@@ -1,9 +1,12 @@
 //------------//
-//THIS FILE IS BASICALLY THE REMOTE//
+//FILE IS A CLASS WITH METHODS: ADDCONTACT, VIEWCONTACTS, DELETECONTACTS, UPDATECONTACTS//
 //---------//
 
 //1.Import built-in 'fs' module so we can read/write files
 import fs from "fs";
+
+//Merge Sort step 1: import Merge Sorting file
+import { MergeSorter } from "./utils/mergeSorter.js";
 
 //2. Path to where our contacts will be stored (data.json)
 const FILE_PATH = "./data.json";
@@ -103,17 +106,55 @@ export class PhoneBook {
     //save the updated array to the file
     this.saveData();
     console.log(`Updated contact with phone number ${phoneNumber}.`);
+  }
 
-    //Prints the contacts nicely for human reading
-    console.log("Phone Book:");
-    this.contacts.forEach((contact, index) => {
-      console.log(`\n#${index + 1}`);
-      console.log(`Name: ${contact.name}`);
-      console.log(`Phone: ${contact.phoneNumber}`);
-      console.log(`Email: ${contact.email}`);
-      console.log(
-        `Date Added: ${new Date(contact.dateAdded).toLocaleString()}`
+  // 11. Merge Sort: sort by field
+  sortContactsBy(field) {
+    const sorter = new MergeSorter(this.contacts);
+    this.contacts = sorter.sortBy(field);
+    this.saveData();
+    console.log(`Sorted contacts by ${field}`);
+  }
+
+  // 12. search contacts by name, phone, or email
+  searchContacts(query) {
+    //convert the search query to lowercase to make the search case-insensitive
+    const lowerQuery = String(query || "")
+      .toLowerCase()
+      .trim();
+
+    //Go through all the contacts and find the ones that match the search query
+    const results = this.contacts.filter((contact) => {
+      //Check if the query appears inside the name, phoneNumber, or email
+      const name = String(contact.name || "").toLowerCase(); //search in name
+      const phone = String(contact.phoneNumber || ""); //search in phone number as a string
+      const email = String(contact.email || "").toLowerCase(); // search  in email
+
+      return (
+        name.includes(lowerQuery) ||
+        phone.includes(lowerQuery) ||
+        email.includes(lowerQuery)
       );
     });
+
+    //if no results are found, tell the user
+    if (results.length === 0) {
+      console.log(`No contacts found matching "${query}".`);
+    } else {
+      // if matches were found, show each one nicely
+      console.log(`Search results for "${query}":`);
+      results.forEach((contact, index) => {
+        console.log(`\n#${index + 1}`); // Show the contact number (starting from 1)
+        console.log(`Name: ${contact.name}`); // Show the contact name
+        console.log(`Phone: ${contact.phoneNumber}`); // Show the phone number
+        console.log(`Email: ${contact.email}`); // Show the email
+        console.log(
+          `Date Added: ${new Date(contact.dateAdded).toLocaleString()}`
+        ); // Show the date the contact was added (in readable format)
+      });
+    }
+
+    //return results so tests can run
+    return results;
   }
 }

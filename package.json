@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha"
+    "test": "node ./node_modules/mocha/bin/mocha.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/rachelkennedy09/phone-book-sorting#readme",
   "devDependencies": {
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
     "nodemon": "^3.1.10"
   }
 }
