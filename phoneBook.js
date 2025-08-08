@@ -8,10 +8,10 @@ import fs from "fs";
 //2. Path to where our contacts will be stored (data.json)
 const FILE_PATH = "./data.json";
 
-//3. Define the PhoneBook class 
+//3. Define the PhoneBook class
 // makes it available for import
 export class PhoneBook {
-    // Runs when you do new PhoneBook(), initializes your contact list
+  // Runs when you do new PhoneBook(), initializes your contact list
   constructor() {
     // 4. This array will hold all contacts in memory
     this.contacts = this.loadData();
@@ -46,14 +46,66 @@ export class PhoneBook {
     console.log(`Added "${name}" to the phone book.`);
   }
 
-  // 8. View all contacts, 
+  // 8. View all contacts,
   viewContacts() {
     if (this.contacts.length === 0) {
       console.log("No contacts found.");
       return;
     }
-//Prints the contacts nicely for human reading
-    console.log("📖 Phone Book:");
+    console.log("Phone Book:");
+    this.contacts.forEach((contact, index) => {
+      console.log(`\n#${index + 1}`);
+      console.log(`Name: ${contact.name}`);
+      console.log(`Phone: ${contact.phoneNumber}`);
+      console.log(`Email: ${contact.email}`);
+      console.log(
+        `Date Added: ${new Date(contact.dateAdded).toLocaleString()}`
+      );
+    });
+  }
+
+  //9. Delete a contact by phone number
+  deleteContact(phoneNumber) {
+    //original length stores the number of contacts before deletion
+    const originalLength = this.contacts.length;
+
+    //Remove any contact with a matching phone number, filter creates a new array
+    //that excludes the contact with the matching number
+    this.contacts = this.contacts.filter(
+      (contact) => contact.phoneNumber !== phoneNumber
+    );
+    //if length didn't change no contact was found
+    if (this.contacts.length === originalLength) {
+      console.log("No contact found with that phone number.");
+    } else {
+      //if length did change, contact was deleted, so we save the file again
+      this.saveData();
+      console.log(`Deleted contact with phone number ${phoneNumber}.`);
+    }
+  }
+
+  //10. update a contact by phone number
+  updateContact(phoneNumber, newDetails) {
+    //find the contact we want to update
+    const contact = this.contacts.find((c) => c.phoneNumber === phoneNumber);
+
+    // if it cant find the contact, show an error and stop
+    if (!contact) {
+      console.log("Contact not found");
+      return;
+    }
+
+    contact.name = newDetails.name || contact.name;
+    contact.phoneNumber = newDetails.phoneNumber || contact.phoneNumber;
+    contact.email = newDetails.email || contact.email;
+    contact.dateAdded = newDetails.dateAdded || contact.dateAdded;
+
+    //save the updated array to the file
+    this.saveData();
+    console.log(`Updated contact with phone number ${phoneNumber}.`);
+
+    //Prints the contacts nicely for human reading
+    console.log("Phone Book:");
     this.contacts.forEach((contact, index) => {
       console.log(`\n#${index + 1}`);
       console.log(`Name: ${contact.name}`);

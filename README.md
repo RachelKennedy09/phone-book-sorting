@@ -8,3 +8,10 @@ CLI phone book app with class-based logic, file storage, and sorting
 - I used trello cards for management and step-by-step to organize how to do this project
 - I learned to not use nodemon (npm dev start) due to the loopholes in it for this exercise. I learned to use npm run start instead.
 - Using classes instead of functions like the professor suggested
+
+# What I learned in phase 1 of phoneBook.js and index.js
+- class groups all phone book features together logically
+- constructor() Sets up the initial state of the app
+- this.contacts Stores your in-memory contact list
+- fs module Read and writes data to a file
+- export/import allows files to work together in parts

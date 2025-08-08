@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CLI phone book app with class-based logic, file storage, and sorting",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
