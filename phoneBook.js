@@ -47,6 +47,7 @@ export class PhoneBook {
     this.contacts.push(newContact);
     this.saveData();
     console.log(`Added "${name}" to the phone book.`);
+    return newContact;
   }
 
   // 8. View all contacts,
@@ -65,6 +66,7 @@ export class PhoneBook {
         `Date Added: ${new Date(contact.dateAdded).toLocaleString()}`
       );
     });
+    return this.contacts;
   }
 
   //9. Delete a contact by phone number
@@ -75,29 +77,32 @@ export class PhoneBook {
     //Remove any contact with a matching phone number, filter creates a new array
     //that excludes the contact with the matching number
     this.contacts = this.contacts.filter(
-      (contact) => contact.phoneNumber !== phoneNumber
+      (contact) => String(contact.phoneNumber) !== String(phoneNumber)
     );
     //if length didn't change no contact was found
     if (this.contacts.length === originalLength) {
-      console.log("No contact found with that phone number.");
+      console.log(`No contact found with phone number: ${phoneNumber}`);
+      return false;
     } else {
-      //if length did change, contact was deleted, so we save the file again
       this.saveData();
       console.log(`Deleted contact with phone number ${phoneNumber}.`);
+      return true;
     }
   }
 
   //10. update a contact by phone number
   updateContact(phoneNumber, newDetails) {
     //find the contact we want to update
-    const contact = this.contacts.find((c) => c.phoneNumber === phoneNumber);
-
+    const contact = this.contacts.find(
+      (c) => String(c.phoneNumber) === String(phoneNumber)
+    );
     // if it cant find the contact, show an error and stop
     if (!contact) {
-      console.log("Contact not found");
-      return;
+      console.log(`Contact not found: ${phoneNumber}`);
+      return false;
     }
 
+    //only overwrite fields that were provided
     contact.name = newDetails.name || contact.name;
     contact.phoneNumber = newDetails.phoneNumber || contact.phoneNumber;
     contact.email = newDetails.email || contact.email;
@@ -106,6 +111,7 @@ export class PhoneBook {
     //save the updated array to the file
     this.saveData();
     console.log(`Updated contact with phone number ${phoneNumber}.`);
+    return true;
   }
 
   // 11. Merge Sort: sort by field
@@ -114,9 +120,10 @@ export class PhoneBook {
     this.contacts = sorter.sortBy(field);
     this.saveData();
     console.log(`Sorted contacts by ${field}`);
+    return this.contacts;
   }
 
-  // 12. search contacts by name, phone, or email
+  // 12. search contacts by name, phone, or email(case insensitive, substring)
   searchContacts(query) {
     //convert the search query to lowercase to make the search case-insensitive
     const lowerQuery = String(query || "")
@@ -126,8 +133,9 @@ export class PhoneBook {
     //Go through all the contacts and find the ones that match the search query
     const results = this.contacts.filter((contact) => {
       //Check if the query appears inside the name, phoneNumber, or email
+      //safe casting so .tolowercase never crashes
       const name = String(contact.name || "").toLowerCase(); //search in name
-      const phone = String(contact.phoneNumber || ""); //search in phone number as a string
+      const phone = String(contact.phoneNumber || ""); //digits don't need a lowercasing
       const email = String(contact.email || "").toLowerCase(); // search  in email
 
       return (
@@ -142,7 +150,7 @@ export class PhoneBook {
       console.log(`No contacts found matching "${query}".`);
     } else {
       // if matches were found, show each one nicely
-      console.log(`Search results for "${query}":`);
+      console.log(`Found search results for "${query}":`);
       results.forEach((contact, index) => {
         console.log(`\n#${index + 1}`); // Show the contact number (starting from 1)
         console.log(`Name: ${contact.name}`); // Show the contact name
