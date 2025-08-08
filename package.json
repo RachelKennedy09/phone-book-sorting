@@ -1,0 +1,25 @@
+{
+  "name": "phone-book-sorting",
+  "version": "1.0.0",
+  "description": "CLI phone book app with class-based logic, file storage, and sorting",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachelkennedy09/phone-book-sorting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachelkennedy09/phone-book-sorting/issues"
+  },
+  "homepage": "https://github.com/rachelkennedy09/phone-book-sorting#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
